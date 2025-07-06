@@ -22,6 +22,9 @@
 
 <script>
 import {defineComponent,defineAsyncComponent} from 'vue'
+import { useAuth } from 'src/composables/useAuth'
+
+const { logout } = useAuth()
 
 export default defineComponent({
   name: 'PageIndex',

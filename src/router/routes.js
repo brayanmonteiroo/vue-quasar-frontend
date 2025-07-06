@@ -1,62 +1,62 @@
 const routes = [
+  // Rotas públicas (sem layout)
   {
-    path: '/',
-    component: () => import('layouts/MainLayout.vue'),
+    path: "/",
+    component: () => import("pages/Login-1.vue"),
+  },
+  {
+    path: "/register",
+    component: () => import("pages/UserRegister.vue"),
+  },
+  {
+    path: "/forgot-password",
+    component: () => import("pages/ForgotPassword.vue"),
+  },
+  {
+    path: "/reset-password",
+    component: () => import("pages/ResetPassword.vue"),
+  },
+
+  // Rotas protegidas (com MainLayout)
+  {
+    path: "/",
+    component: () => import("layouts/MainLayout.vue"),
     children: [
-      {path: '', component: () => import('pages/Dashboard.vue')},
-      {path: '/Dashboard2', component: () => import('pages/Dashboard2.vue')},
-      {path: '/Profile', component: () => import('pages/UserProfile.vue')},
-      {path: '/Map', component: () => import('pages/Map.vue')},
-      {path: '/MapMarker', component: () => import('pages/MapMarker.vue')},
-      {path: '/TreeTable', component: () => import('pages/TreeTable.vue')},
-      {path: '/StreetView', component: () => import('pages/StreetView.vue')},
-      {path: '/Cards', component: () => import('pages/Cards.vue')},
-      {path: '/Tables', component: () => import('pages/Tables.vue')},
-      {path: '/Contact', component: () => import('pages/Contact.vue')},
-      {path: '/Checkout', component: () => import('pages/Checkout.vue')},
-      {path: '/Ecommerce', component: () => import('pages/ProductCatalogues.vue')},
-      {path: '/Pagination', component: () => import('pages/Pagination.vue')},
-      {path: '/Charts', component: () => import('pages/Charts.vue')},
-      {path: '/Calendar', component: () => import('pages/Calendar.vue')},
-      {path: '/Directory', component: () => import('pages/Directory.vue')},
-      {path: '/Footer', component: () => import('pages/Footer.vue')},
-      {path: '/CardHeader', component: () => import('pages/CardHeader.vue')},
-
-      // Not completed yet
-      // {path: '/Taskboard', component: () => import('pages/TaskBoard.vue')},
-    ]
+      { path: "dashboard", component: () => import("pages/Dashboard.vue") },
+      { path: "dashboard2", component: () => import("pages/Dashboard2.vue") },
+      { path: "profile", component: () => import("pages/UserProfile.vue") },
+      { path: 'users', component: () => import('pages/UserList.vue') },
+      { path: "map", component: () => import("pages/Map.vue") },
+      { path: "mapmarker", component: () => import("pages/MapMarker.vue") },
+      { path: "treetable", component: () => import("pages/TreeTable.vue") },
+      { path: "streetview", component: () => import("pages/StreetView.vue") },
+      { path: "cards", component: () => import("pages/Cards.vue") },
+      { path: "tables", component: () => import("pages/Tables.vue") },
+      { path: "contact", component: () => import("pages/Contact.vue") },
+      { path: "checkout", component: () => import("pages/Checkout.vue") },
+      {
+        path: "ecommerce",
+        component: () => import("pages/ProductCatalogues.vue"),
+      },
+      { path: "pagination", component: () => import("pages/Pagination.vue") },
+      { path: "charts", component: () => import("pages/Charts.vue") },
+      { path: "calendar", component: () => import("pages/Calendar.vue") },
+      { path: "directory", component: () => import("pages/Directory.vue") },
+      { path: "footer", component: () => import("pages/Footer.vue") },
+      { path: "cardheader", component: () => import("pages/CardHeader.vue") },
+      { path: "mail", component: () => import("layouts/Mail.vue") },
+      { path: "maintenance", component: () => import("pages/Maintenance.vue") },
+      { path: "pricing", component: () => import("pages/Pricing.vue") },
+      { path: "lock", component: () => import("pages/LockScreen.vue") },
+      { path: "lock-2", component: () => import("pages/LockScreen-2.vue") },
+    ],
   },
 
-  // Always leave this as last one,
-  // but you can also remove it
+  // 404
   {
-    path: '/:catchAll(.*)*',
-    component: () => import('pages/Error404.vue')
+    path: "/:catchAll(.*)*",
+    component: () => import("pages/Error404.vue"),
   },
-  {
-    path: '/Mail',
-    component: () => import('layouts/Mail.vue')
-  },
-  {
-    path: '/Maintenance',
-    component: () => import('pages/Maintenance.vue')
-  },
-  {
-    path: '/Pricing',
-    component: () => import('pages/Pricing.vue')
-  },
-  {
-    path: '/Login-1',
-    component: () => import('pages/Login-1.vue')
-  },
-  {
-    path: '/Lock',
-    component: () => import('pages/LockScreen.vue')
-  },
-  {
-    path: '/Lock-2',
-    component: () => import('pages/LockScreen-2.vue')
-  }
-]
+];
 
-export default routes
+export default routes;

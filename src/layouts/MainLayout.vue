@@ -72,9 +72,9 @@
       class="bg-primary text-white"
     >
       <q-list>
-        <q-item to="/dashboard" active-class="q-item-no-link-highlighting">
+        <q-item to="/users" active-class="q-item-no-link-highlighting">
           <q-item-section avatar>
-            <q-icon name="dashboard"/>
+            <q-icon name="group"/>
           </q-item-section>
           <q-item-section>
             <q-item-label>Usuários</q-item-label>
