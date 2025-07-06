@@ -1,24 +1,26 @@
-FROM node:20-alpine
+# Etapa 1: Build do projeto
+FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-# Instalar dependências do sistema necessárias para o Quasar
-RUN apk add --no-cache git
-
-# Copiar arquivos de dependências
 COPY package*.json ./
+RUN npm install
 
-# Instalar dependências SEM rodar postinstall
-RUN npm ci --ignore-scripts
-
-# Copiar código fonte
 COPY . .
 
-# Executar quasar prepare DEPOIS de copiar o código
-RUN npm run postinstall
+# Instala o Quasar CLI globalmente
+RUN npm install -g @quasar/cli
 
-# Expor porta padrão do Quasar
+# Build do Quasar
+RUN quasar build
+
+# Etapa 2: Servir com Nginx
+FROM nginx:alpine
+
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d
+COPY --from=builder /app/dist/spa /usr/share/nginx/html
+
 EXPOSE 9000
 
-# Comando para desenvolvimento com Quasar
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+CMD ["nginx", "-g", "daemon off;"]
