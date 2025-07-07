@@ -19,12 +19,14 @@
             <q-form @submit="onSubmit" class="q-gutter-md">
               <q-input filled v-model="email" label="E-mail" type="email" required />
               <q-input filled v-model="password" label="Senha" type="password" required />
-              <div>
-                <q-btn label="Entrar" type="submit" color="primary" />
+              <div align="center">
+                <q-btn push label="Entrar" type="submit" color="primary" class="full-width" />
               </div>
-              <div class="q-mt-md">
-                <q-btn flat label="Registrar" @click="goRegister" />
-                <q-btn flat label="Esqueci minha senha" @click="goForgot" />
+              <div class="row items-center justify-between q-mt-sm">
+                <q-btn flat label="Registrar" icon="person_add" @click="goRegister" color="primary"
+                  class="text-weight-bold" />
+                <q-btn flat label="Esqueci minha senha" icon="help_outline" @click="goForgot" color="primary"
+                  class="text-weight-bold" />
               </div>
               <div v-if="error" class="q-mt-md text-negative">{{ error }}</div>
             </q-form>

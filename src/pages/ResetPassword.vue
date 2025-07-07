@@ -23,10 +23,14 @@
               <q-input filled v-model="password" label="Nova senha" type="password" required />
               <q-input filled v-model="password_confirmation" label="Confirme a nova senha" type="password" required />
               <div>
-                <q-btn label="Redefinir senha" type="submit" color="primary" />
+                <q-btn push label="Redefinir senha" type="submit" color="primary" class="full-width" />
               </div>
             </q-form>
           </q-card-section>
+          <q-card-actions align="center" class="q-mt-md">
+            <q-btn flat label="Voltar para o login" icon="arrow_back" @click="goLogin" color="primary"
+              class="text-weight-bold" />
+          </q-card-actions>
         </q-card>
       </q-page>
     </q-page-container>
@@ -83,6 +87,8 @@ const onSubmit = async () => {
     })
   }
 }
+
+const goLogin = () => router.push('/')
 </script>
 
 <style>

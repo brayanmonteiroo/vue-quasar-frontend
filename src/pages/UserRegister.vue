@@ -22,10 +22,13 @@
               <q-input filled v-model="password" label="Senha" type="password" required />
               <q-input filled v-model="password_confirmation" label="Confirme a senha" type="password" required />
               <div>
-                <q-btn label="Registrar" type="submit" color="primary" />
+                <q-btn push label="Registrar" type="submit" color="primary" class="full-width" />
               </div>
-              <div class="q-mt-md">
-                <q-btn flat label="Voltar para o login" @click="goLogin" />
+              <div class="row items-center justify-between q-mt-md">
+                <q-btn flat label="Voltar para o login" icon="arrow_back" @click="goLogin" color="primary"
+                  class="text-weight-bold" />
+                <q-btn flat label="Esqueci minha senha" icon="help_outline" @click="goForgot" color="primary"
+                  class="text-weight-bold" />
               </div>
             </q-form>
           </q-card-section>
@@ -90,6 +93,9 @@ const onSubmit = async () => {
 function goLogin() {
   router.push('/')
 }
+
+// Função para redirecionar para a página de recuperação de senha usada no botão "Esqueci minha senha"
+const goForgot = () => router.push('/forgot-password')
 </script>
 
 <style>
