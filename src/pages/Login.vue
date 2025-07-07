@@ -18,7 +18,12 @@
           <q-card-section>
             <q-form @submit="onSubmit" class="q-gutter-md">
               <q-input filled v-model="email" label="E-mail" type="email" required />
-              <q-input filled v-model="password" label="Senha" type="password" required />
+              <q-input filled v-model="password" :type="showPassword ? 'text' : 'password'" label="Senha" required>
+                <template #append>
+                  <q-icon :name="showPassword ? 'visibility_off' : 'visibility'" class="cursor-pointer"
+                    @click="showPassword = !showPassword" />
+                </template>
+              </q-input>
               <div align="center">
                 <q-btn push label="Entrar" type="submit" color="primary" class="full-width" />
               </div>
@@ -46,6 +51,7 @@ import { useQuasar } from 'quasar'
 const email = ref('')
 const password = ref('')
 const error = ref('')
+const showPassword = ref(false)
 const router = useRouter()
 const $q = useQuasar()
 

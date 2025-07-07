@@ -19,8 +19,19 @@
             <q-form @submit="onSubmit" class="q-gutter-md">
               <q-input filled v-model="name" label="Nome" required />
               <q-input filled v-model="email" label="E-mail" type="email" required />
-              <q-input filled v-model="password" label="Senha" type="password" required />
-              <q-input filled v-model="password_confirmation" label="Confirme a senha" type="password" required />
+              <q-input filled v-model="password" :type="showPassword ? 'text' : 'password'" label="Senha" required>
+                <template #append>
+                  <q-icon :name="showPassword ? 'visibility_off' : 'visibility'" class="cursor-pointer"
+                    @click="showPassword = !showPassword" />
+                </template>
+              </q-input>
+              <q-input filled v-model="password_confirmation" :type="showPasswordConfirmation ? 'text' : 'password'"
+                label="Confirme a senha" required>
+                <template #append>
+                  <q-icon :name="showPasswordConfirmation ? 'visibility_off' : 'visibility'" class="cursor-pointer"
+                    @click="showPasswordConfirmation = !showPasswordConfirmation" />
+                </template>
+              </q-input>
               <div>
                 <q-btn push label="Registrar" type="submit" color="primary" class="full-width" />
               </div>
@@ -48,6 +59,8 @@ const name = ref('')
 const email = ref('')
 const password = ref('')
 const password_confirmation = ref('')
+const showPassword = ref(false)
+const showPasswordConfirmation = ref(false)
 const router = useRouter()
 const $q = useQuasar()
 

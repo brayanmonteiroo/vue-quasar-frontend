@@ -19,12 +19,14 @@
             <q-form @submit="onSubmit" class="q-gutter-md">
               <q-input filled v-model="email" label="E-mail" type="email" required />
               <div align="center">
-                <q-btn push label="Enviar link de redefinição" type="submit" color="primary" class="full-width"/>
+                <q-btn push label="Enviar link de redefinição" type="submit" color="primary" class="full-width" />
               </div>
               <div class="q-mt-md">
                 <div class="row items-center justify-between q-mt-md">
-                  <q-btn flat label="Voltar para o login" icon="arrow_back" @click="goLogin" color="primary" class="text-weight-bold" />
-                  <q-btn flat label="Registrar" icon="person_add" @click="goRegister" color="primary" class="text-weight-bold" />
+                  <q-btn flat label="Voltar para o login" icon="arrow_back" @click="goLogin" color="primary"
+                    class="text-weight-bold" />
+                  <q-btn flat label="Registrar" icon="person_add" @click="goRegister" color="primary"
+                    class="text-weight-bold" />
                 </div>
               </div>
             </q-form>
