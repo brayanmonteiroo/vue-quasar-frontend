@@ -2,7 +2,7 @@ const routes = [
   // Rotas públicas (sem layout)
   {
     path: "/",
-    component: () => import("pages/Login-1.vue"),
+    component: () => import("src/pages/Login.vue"),
   },
   {
     path: "/register",
