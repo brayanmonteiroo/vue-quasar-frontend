@@ -49,7 +49,7 @@
                   <q-item-section avatar>
                     <q-icon name="person" />
                   </q-item-section>
-                  <q-item-section>Profile</q-item-section>
+                  <q-item-section>Perfil</q-item-section>
                 </q-item>
                 <q-separator />
                 <q-item clickable v-ripple @click="logout" class="text-negative">

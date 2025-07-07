@@ -27,8 +27,6 @@
               <div class="q-mt-md">
                 <q-btn flat label="Voltar para o login" @click="goLogin" />
               </div>
-              <div v-if="message" class="q-mt-md text-positive">{{ message }}</div>
-              <div v-if="error" class="q-mt-md text-negative">{{ error }}</div>
             </q-form>
           </q-card-section>
         </q-card>
@@ -41,31 +39,54 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
+import { useQuasar } from 'quasar'
 
 const name = ref('')
 const email = ref('')
 const password = ref('')
 const password_confirmation = ref('')
-const message = ref('')
-const error = ref('')
 const router = useRouter()
+const $q = useQuasar()
 
 const onSubmit = async () => {
-  message.value = ''
-  error.value = ''
   try {
+    // Envia uma requisição POST para a API de registro. Aqui acontece o registro do usuário.
     await axios.post('http://localhost:8000/api/auth/register', {
       name: name.value,
       email: email.value,
       password: password.value,
       password_confirmation: password_confirmation.value
     })
-    message.value = 'Usuário registrado com sucesso! Faça login.'
+
+    // Se o registro for bem-sucedido, redireciona para a página de login
+    router.push('/')
+
+    // Exibe uma notificação de sucesso se o registro for bem-sucedido
+    $q.notify({
+      type: 'positive',
+      message: 'Usuário registrado com sucesso! Faça login.',
+      position: 'top',
+      timeout: 3000
+    })
+
+    // Limpa os campos após sucesso para evitar reenvios acidentais
+    name.value = ''
+    email.value = ''
+    password.value = ''
+    password_confirmation.value = ''
+
   } catch (err) {
-    error.value = err.response?.data?.message || 'Erro ao registrar'
+    // Se ocorrer um erro, exibe uma notificação
+    $q.notify({
+      type: 'negative',
+      message: err.response?.data?.message || 'Erro ao registrar usuário',
+      position: 'top',
+      timeout: 4000
+    })
   }
 }
 
+// Função para redirecionar para a página de login usada no botão "Voltar para o login"
 function goLogin() {
   router.push('/')
 }

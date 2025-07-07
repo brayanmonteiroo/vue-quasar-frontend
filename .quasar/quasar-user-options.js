@@ -11,11 +11,13 @@
  * Boot files are your "main.js"
  **/
 
-
-
-import {AppFullscreen} from 'quasar'
+import lang from 'quasar/lang/pt-BR.js'
 
 
 
-export default { config: {},plugins: {AppFullscreen} }
+import {AppFullscreen,Notify} from 'quasar'
+
+
+
+export default { config: {},lang,plugins: {AppFullscreen,Notify} }
 

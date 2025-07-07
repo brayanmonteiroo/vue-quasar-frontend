@@ -25,8 +25,6 @@
               <div>
                 <q-btn label="Redefinir senha" type="submit" color="primary" />
               </div>
-              <div v-if="message" class="q-mt-md text-positive">{{ message }}</div>
-              <div v-if="error" class="q-mt-md text-negative">{{ error }}</div>
             </q-form>
           </q-card-section>
         </q-card>
@@ -39,16 +37,16 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
+import { useQuasar } from 'quasar'
 
 const route = useRoute()
 const router = useRouter()
+const $q = useQuasar()
 
 const email = ref('')
 const token = ref('')
 const password = ref('')
 const password_confirmation = ref('')
-const message = ref('')
-const error = ref('')
 
 onMounted(() => {
   email.value = route.query.email || ''
@@ -56,8 +54,6 @@ onMounted(() => {
 })
 
 const onSubmit = async () => {
-  message.value = ''
-  error.value = ''
   try {
     const response = await axios.post('http://localhost:8000/api/auth/reset-password', {
       email: email.value,
@@ -65,12 +61,26 @@ const onSubmit = async () => {
       password: password.value,
       password_confirmation: password_confirmation.value
     })
-    message.value = response.data.message
+
+    $q.notify({
+      type: 'positive',
+      message: response.data.message || 'Senha redefinida com sucesso!',
+      position: 'top',
+      timeout: 3000
+    })
+
+    // Redireciona para login após 2 segundos
     setTimeout(() => {
       router.push('/')
     }, 2000)
+
   } catch (err) {
-    error.value = err.response?.data?.message || 'Erro ao redefinir senha'
+    $q.notify({
+      type: 'negative',
+      message: err.response?.data?.message || 'Erro ao redefinir senha',
+      position: 'top',
+      timeout: 4000
+    })
   }
 }
 </script>

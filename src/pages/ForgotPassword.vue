@@ -24,8 +24,6 @@
               <div class="q-mt-md">
                 <q-btn flat label="Voltar para o login" @click="goLogin" />
               </div>
-              <div v-if="message" class="q-mt-md text-positive">{{ message }}</div>
-              <div v-if="error" class="q-mt-md text-negative">{{ error }}</div>
             </q-form>
           </q-card-section>
         </q-card>
@@ -38,20 +36,35 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
+import { useQuasar } from 'quasar'
 
 const email = ref('')
-const message = ref('')
-const error = ref('')
 const router = useRouter()
+const $q = useQuasar()
 
 const onSubmit = async () => {
-  message.value = ''
-  error.value = ''
   try {
-    const response = await axios.post('http://localhost:8000/api/auth/forgot-password', { email: email.value })
-    message.value = response.data.message
+    const response = await axios.post('http://localhost:8000/api/auth/forgot-password', {
+      email: email.value
+    })
+
+    $q.notify({
+      type: 'positive',
+      message: response.data.message || 'Link de redefinição enviado para seu e-mail',
+      position: 'top',
+      timeout: 4000
+    })
+
+    // Limpa o campo após sucesso
+    email.value = ''
+
   } catch (err) {
-    error.value = err.response?.data?.message || 'Erro ao enviar e-mail'
+    $q.notify({
+      type: 'negative',
+      message: err.response?.data?.message || 'Erro ao enviar e-mail de redefinição',
+      position: 'top',
+      timeout: 4000
+    })
   }
 }
 

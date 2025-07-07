@@ -39,11 +39,13 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
+import { useQuasar } from 'quasar'
 
 const email = ref('')
 const password = ref('')
 const error = ref('')
 const router = useRouter()
+const $q = useQuasar()
 
 // Função para lidar com o envio do formulário e autenticação do usuário.
 const onSubmit = async () => {
@@ -55,12 +57,19 @@ const onSubmit = async () => {
       email: email.value,
       password: password.value
     })
+
     // Salve o token se quiser autenticação persistente
     localStorage.setItem('token', response.data.access_token)
     // Redirecione para o dashboard ou página protegida
     router.push('/dashboard')
   } catch (err) {
-    error.value = err.response?.data?.message || 'Erro ao fazer login'
+    // Se ocorrer um erro, exibe uma notificação
+    $q.notify({
+      type: 'negative',
+      message: err.response?.data?.message || 'Erro ao fazer login',
+      position: 'top',
+      timeout: 3000
+    })
   }
 }
 
